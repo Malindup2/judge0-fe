@@ -21,10 +21,10 @@ export default function DSAChallengePage({
         {/* Left Panel: Info Cards */}
         <div className="flex h-full w-full flex-col gap-6 lg:w-[46.4%] lg:flex-shrink-0">
           {/* Top Card: Title */}
-          <div className="relative flex flex-col border border-[#3ddc84]/15 bg-[#0C0E19]/80 transition-all duration-300">
+          <div className="relative flex flex-col border border-[#40FD51]/25 bg-[#0C0E19]/80 transition-all duration-300">
             {/* Header */}
-            <div className="border-b border-[#3ddc84]/15 px-6 py-5">
-              <h1 className="text-lg font-semibold tracking-wide text-[#3ddc84] xl:text-xl">
+            <div className="border-b border-[#40FD51]/25 px-6 py-5">
+              <h1 className="text-lg font-semibold tracking-wide text-[#40FD51] xl:text-xl">
                 Count Distinct Words
               </h1>
             </div>
@@ -39,10 +39,10 @@ export default function DSAChallengePage({
           </div>
 
           {/* Bottom Card: Description */}
-          <div className="relative flex flex-1 flex-col border border-[#3ddc84]/15 bg-[#0C0E19]/80 transition-all duration-300">
+          <div className="relative flex flex-1 flex-col border border-[#40FD51]/25 bg-[#0C0E19]/80 transition-all duration-300">
             {/* Header */}
-            <div className="border-b border-[#3ddc84]/15 px-6 py-5">
-              <h2 className="text-lg font-semibold tracking-wide text-[#3ddc84] xl:text-xl">
+            <div className="border-b border-[#40FD51]/25 px-6 py-5">
+              <h2 className="text-lg font-semibold tracking-wide text-[#40FD51] xl:text-xl">
                 Description
               </h2>
             </div>
@@ -66,10 +66,10 @@ export default function DSAChallengePage({
 
         {/* Right Panel: Terminal area */}
         <div className="relative mb-6 flex h-full w-full flex-1 flex-col xl:mb-8">
-          <div className="flex h-full flex-col border border-[#3ddc84]/15 bg-[#0C0E19]/80 transition-all duration-300">
+          <div className="flex h-full flex-col border border-[#40FD51]/25 bg-[#0C0E19]/80 transition-all duration-300">
             {/* Terminal Header */}
-            <div className="border-b border-[#3ddc84]/15 px-6 py-4">
-              <span className="text-[14px] font-medium tracking-wide text-[#3ddc84]/80">
+            <div className="border-b border-[#40FD51]/25 px-6 py-4">
+              <span className="text-base font-medium tracking-wide text-white">
                 Terminal
               </span>
             </div>
@@ -77,7 +77,7 @@ export default function DSAChallengePage({
             {/* Terminal Content */}
             <div className="relative flex flex-1 flex-col overflow-hidden p-6 pb-20">
               <textarea
-                className="h-full w-full resize-none bg-transparent font-mono text-[14px] leading-relaxed text-[#ededed]/80 focus:outline-none"
+                className="h-full w-full resize-none bg-transparent font-mono text-[14px] leading-relaxed text-white focus:outline-none"
                 spellCheck={false}
               />
 
@@ -85,7 +85,7 @@ export default function DSAChallengePage({
               <div className="absolute bottom-6 right-6">
                 <button
                   type="button"
-                  className="cursor-pointer border border-[#3ddc84]/40 bg-transparent px-10 py-2.5 text-sm font-semibold tracking-widest text-[#3ddc84] transition-all duration-200 hover:border-[#3ddc84]/60 hover:bg-[#3ddc84]/10 active:scale-[0.98]"
+                  className="cursor-pointer border border-[#40FD51] bg-transparent px-10 py-2.5 text-sm font-semibold tracking-widest text-[#40FD51] transition-all duration-200 hover:border-[#40FD51] hover:bg-[#40FD51]/10 active:scale-[0.98]"
                 >
                   SUBMIT
                 </button>
@@ -103,11 +103,11 @@ export default function DSAChallengePage({
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background-color: rgba(61, 220, 132, 0.15); /* #3ddc84 */
+          background-color: rgba(64, 253, 81, 0.15); /* #40FD51 */
           border-radius: 4px;
         }
         .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-          background-color: rgba(61, 220, 132, 0.3);
+          background-color: rgba(64, 253, 81, 0.3);
         }
       `}</style>
     </div>
