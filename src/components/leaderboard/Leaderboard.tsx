@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
+import Image from 'next/image';
 import api from '@/lib/http';
 import { LeaderboardUser, LeaderboardResponse } from '@/types/types';
 
@@ -62,20 +63,20 @@ const LeaderboardSkeleton = ({
         {[220, 260, 220].map((width, i) => (
           <div key={i} className={`flex flex-col items-center w-[${width}px]`}>
             <div
-              className={`w-${i === 1 ? '20' : '16'} h-${i === 1 ? '16' : '12'} bg-[#162E19] mb-[-${i === 1 ? '2.2' : '1.8'}rem] rounded-sm`}
+              className={`w-${i === 1 ? '20' : '16'} h-${i === 1 ? '16' : '12'} bg-[#162E19] mb-[-${i === 1 ? '2.2' : '1.8'}rem]`}
             ></div>
             <div
-              className={`w-full h-${i === 1 ? '48' : '40'} bg-[#0C0E19]/60 border border-[#162E19] px-4 pt-12 pb-6 flex flex-col items-center gap-3 rounded-sm`}
+              className={`w-full h-${i === 1 ? '48' : '40'} bg-transparent border border-[#162E19] px-4 pt-12 pb-6 flex flex-col items-center gap-3`}
             >
-              <div className="w-24 h-4 bg-[#162E19] rounded"></div>
-              <div className="w-16 h-3 bg-[#162E19] rounded"></div>
-              <div className="w-20 h-6 bg-[#162E19] rounded-sm mt-2"></div>
+              <div className="w-24 h-4 bg-[#162E19]"></div>
+              <div className="w-16 h-3 bg-[#162E19]"></div>
+              <div className="w-20 h-6 bg-[#162E19] mt-2"></div>
             </div>
           </div>
         ))}
       </div>
     )}
-    <div className="w-full bg-[#111111]/40 border border-[#162E19] p-2 rounded-sm opacity-50">
+    <div className="w-full bg-transparent border border-[#162E19] p-2 opacity-50">
       <div className="flex items-center py-4 px-6 gap-4">
         <div className="w-[20%] h-3 bg-[#162E19] rounded opacity-50"></div>
         <div className="w-[55%] h-3 bg-[#162E19] rounded opacity-50"></div>
@@ -102,71 +103,58 @@ const Podium = ({ top3 }: { top3: LeaderboardUser[] }) => {
     {
       rank: 3,
       user: top3[2],
-      width: 'w-[220px]',
-      fontSize: 'text-6xl',
-      margin: 'mb-[-1.8rem]',
+      marginClass: 'mt-[120px] -translate-x-4',
       shadow: 'drop-shadow(0_0_10px_rgba(44,212,58,0.6))',
-      pt: 'pt-12',
-      pb: 'pb-6',
-      bg: 'bg-[#0C0E19]/60',
     },
     {
       rank: 1,
       user: top3[0],
-      width: 'w-[260px]',
-      fontSize: 'text-7xl',
-      margin: 'mb-[-2.2rem]',
+      marginClass: 'mt-0 z-20',
       shadow: 'drop-shadow(0_0_12px_rgba(64,253,81,0.7))',
-      pt: 'pt-14',
-      pb: 'pb-8',
-      bg: 'bg-[#0C0E19]/80 shadow-[0_0_20px_rgba(64,253,81,0.05)]',
     },
     {
       rank: 2,
       user: top3[1],
-      width: 'w-[220px]',
-      fontSize: 'text-6xl',
-      margin: 'mb-[-1.8rem]',
+      marginClass: 'mt-[120px] translate-x-4',
       shadow: 'drop-shadow(0_0_10px_rgba(64,253,81,0.6))',
-      pt: 'pt-12',
-      pb: 'pb-6',
-      bg: 'bg-[#0C0E19]/60',
     },
   ];
 
   return (
-    <div className="flex items-end justify-center gap-6 mb-16 w-full">
+    <div className="flex items-start justify-center gap-[70px] mb-20 w-full px-4">
       {podiumConfig.map(
-        ({ rank, user, width, fontSize, margin, shadow, pt, pb, bg }) =>
+        ({ rank, user, marginClass, shadow }) =>
           user && (
             <div
               key={user.user_id}
-              className={`flex flex-col items-center ${width}`}
+              className={`flex flex-col items-center flex-1 max-w-[280px] w-full ${marginClass}`}
             >
-              <span
-                className={`${fontSize} font-bold ${margin} relative z-10`}
-                style={{
-                  background: 'linear-gradient(to right, #FFFFFF, #40FD51)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  filter: shadow,
-                }}
-              >
-                {rank}
-              </span>
               <div
-                className={`w-full flex flex-col items-center px-4 ${pt} ${pb} border border-[#162E19] ${bg}`}
+                className={`mb-[-25px] relative z-10 flex items-center justify-center`}
+              >
+                <Image
+                  src={`/assets/${rank}.svg`}
+                  alt={`Rank ${rank}`}
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                  style={{ filter: shadow }}
+                />
+              </div>
+              <div
+                className={`w-full flex flex-col items-center pt-8 pb-6 border border-[#40fd51]/30 bg-transparent`}
               >
                 <span
-                  className={`${rank === 1 ? 'text-xl' : 'text-lg'} text-white mb-2 truncate max-w-full uppercase font-medium tracking-tight`}
+                  className={`text-2xl text-white as-center mb-1 truncate max-w-[90%] font-normal tracking-wide`}
                 >
                   {user.name}
                 </span>
-                <span className="text-sm text-gray-300 mb-4 font-mono">
-                  {user.xp} <span className="text-[#40fd51]">XP</span>
+                <span className="text-xl text-white mb-4">
+                  {user.xp}{' '}
+                  <span className="text-[#40fd51]/70 ml-1 text-lg">XP</span>
                 </span>
-                <div className="px-5 py-2 border border-[#162E19] text-[#40fd51] text-[10px] font-bold tracking-[0.2em]">
-                  # RANK {rank}
+                <div className="px-6 py-2.5 border border-[#40fd51]/40 text-[#40fd51] text-[13px] font-bold uppercase">
+                  # Rank {rank}
                 </div>
               </div>
             </div>
@@ -192,16 +180,14 @@ const UserRow = ({
   const rank =
     (currentPage - 1) * pageSize + (isFirstPage ? index + 4 : index + 1);
   return (
-    <div className="flex items-center border border-[#40fd51]/20 bg-[#0C0E19]/80 py-4 px-6 hover:border-[#40fd51]/40 transition-all duration-300 group">
-      <div className="w-[20%] text-gray-400 font-mono text-sm group-hover:text-[#40fd51] transition-colors">
+    <div className="flex items-center border border-[#40fd51]/60 bg-transparent py-4 px-6">
+      <div className="w-[20%] text-white text-[18px] ml-4">
         #{String(rank).padStart(2, '0')}
       </div>
-      <div className="w-[55%] text-gray-200 text-sm font-medium group-hover:text-white transition-colors">
+      <div className="w-[55%] text-white text-[18px] font-normal">
         {user.name}
       </div>
-      <div className="w-[25%] text-gray-200 text-sm font-mono text-right px-4">
-        {user.xp} <span className="text-[#40fd51]/60 text-[10px] ml-1">XP</span>
-      </div>
+      <div className="w-[25%] text-white text-[18px] text-left">{user.xp}</div>
     </div>
   );
 };
@@ -215,11 +201,11 @@ const Pagination = ({
   totalPages: number;
   onPageChange: (page: number) => void;
 }) => (
-  <div className="flex justify-center items-center gap-3 mt-10 text-sm font-mono">
+  <div className="flex justify-center items-center gap-4 mt-6 text-sm pb-2">
     <button
       onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
       disabled={currentPage === 1}
-      className="text-gray-500 hover:text-[#40fd51] transition-colors disabled:opacity-20 disabled:cursor-not-allowed px-2"
+      className="text-[#40fd51] hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed font-bold text-lg"
     >
       &lt;
     </button>
@@ -228,10 +214,10 @@ const Pagination = ({
       <button
         key={page}
         onClick={() => onPageChange(page)}
-        className={`w-8 h-8 flex items-center justify-center text-xs font-bold rounded-sm transition-all ${
+        className={`w-6 h-6 flex items-center justify-center text-xs font-bold transition-all ${
           currentPage === page
-            ? 'bg-[#40fd51] text-black shadow-[0_0_10px_rgba(64,253,81,0.3)]'
-            : 'text-gray-400 hover:text-[#40fd51] hover:bg-[#162E19]/50'
+            ? 'bg-[#40fd51] text-black'
+            : 'text-[#40fd51] hover:text-white'
         }`}
       >
         {page}
@@ -241,7 +227,7 @@ const Pagination = ({
     <button
       onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
       disabled={currentPage === totalPages}
-      className="text-gray-500 hover:text-[#40fd51] transition-colors disabled:opacity-20 disabled:cursor-not-allowed px-2"
+      className="text-[#40fd51] hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed font-bold text-lg"
     >
       &gt;
     </button>
@@ -267,10 +253,13 @@ export default function Leaderboard() {
   );
 
   return (
-    <div className="w-full flex justify-center pb-20 font-sans">
+    <div
+      className="w-full flex justify-center pb-20"
+      style={{ fontFamily: 'var(--font-poppins)' }}
+    >
       <main className="flex-1 flex flex-col items-center mt-12 px-0 relative z-10 w-full max-w-[1000px]">
         <header className="flex flex-col items-center mb-16">
-          <h1 className="text-[14px] font-semibold text-[#40fd51] tracking-[0.3em] text-center uppercase">
+          <h1 className="text-[18px] font-semibold text-[#40fd51] text-center uppercase">
             LEADERBOARD LIVE.
           </h1>
         </header>
@@ -285,14 +274,14 @@ export default function Leaderboard() {
           <div className="w-full flex flex-col items-center fade-in">
             {isFirstPage && <Podium top3={top3} />}
 
-            <div className="w-full bg-[#111111]/60 border border-[#162E19] p-2 rounded-sm">
-              <div className="flex items-center text-[#40fd51] text-[10px] font-bold tracking-[0.25em] py-4 px-6 opacity-80 uppercase">
-                <div className="w-[20%]">Rank</div>
-                <div className="w-[55%]">Participant</div>
-                <div className="w-[25%] text-right px-4">Experience</div>
+            <div className="w-full bg-transparent border border-[#40fd51]/20 p-8 pt-10">
+              <div className="flex items-center text-[#40fd51] text-[20px] font-bold pb-6 mb-6 border-b border-[#40fd51]/20 uppercase">
+                <div className="w-[19%] ml-10">Rank</div>
+                <div className="w-[53%]">Participant</div>
+                <div className="w-[27%] text-left">XP Points</div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4 mb-4">
                 {restOfUsers.map((user, index) => (
                   <UserRow
                     key={user.user_id}
@@ -306,13 +295,11 @@ export default function Leaderboard() {
               </div>
 
               {totalPages > 1 && (
-                <div className="pb-4">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={setCurrentPage}
-                  />
-                </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
               )}
             </div>
           </div>
